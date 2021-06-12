@@ -482,26 +482,30 @@ QByteArray MumeXmlParser::characters(QByteArray &ch)
         } else {
             m_lineFlags.insert(LineFlagEnum::NONE);
         }
-        toUser.append(ch);
+        // Disabled in standalone mode
+        //toUser.append(ch);
         break;
 
     case XmlModeEnum::ROOM: // dynamic line
         m_roomContents = RoomContents{
             m_roomContents.value_or(RoomContents{}).toQString()
             + normalizeStringCopy(m_stringBuffer.simplified().append("\n"))};
-        toUser.append(ch);
+        // Sending room contents is disabled in standalone mode
+        //toUser.append(ch);
         break;
 
     case XmlModeEnum::NAME:
         m_roomName = RoomName{normalizeStringCopy(m_stringBuffer)};
-        toUser.append(ch);
+        // Sending room names is disabled in standalone mode
+        //toUser.append(ch);
         break;
 
     case XmlModeEnum::DESCRIPTION: // static line
         m_roomDesc = RoomDesc{m_roomDesc.value_or(RoomDesc{}).toQString()
                               + normalizeStringCopy(m_stringBuffer.simplified().append("\n"))};
         if (!m_gratuitous) {
-            toUser.append(ch);
+            // Sending room desc is disabled in standalone mode
+            //toUser.append(ch);
         }
         break;
 
@@ -529,13 +533,15 @@ QByteArray MumeXmlParser::characters(QByteArray &ch)
             parsePrompt(normalizeStringCopy(m_stringBuffer));
             move();
         }
-        toUser.append(ch);
+        // Sending prompt is disabled in standalone mode
+        //toUser.append(ch);
         break;
 
     case XmlModeEnum::HEADER:
     case XmlModeEnum::TERRAIN:
     default:
-        toUser.append(ch);
+        // Sending terrain is disabled in standalone mode
+        //toUser.append(ch);
         break;
     }
 

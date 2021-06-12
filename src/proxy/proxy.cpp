@@ -277,6 +277,7 @@ void Proxy::slot_onMudConnected()
 
     log("Connection to server established ...");
 
+    /* disabled for standalone mode
     // send IAC-GA prompt request
     QByteArray idPrompt("~$#EP2\nG\n");
     log("Sent MUME Protocol Initiator IAC-GA prompt request");
@@ -289,6 +290,7 @@ void Proxy::slot_onMudConnected()
     }
     sendToMud(QByteArray("~$#EX2\n3G\n"));
     log("Sent MUME Protocol Initiator XML request");
+    */
 }
 
 void Proxy::slot_onMudError(const QString &errorStr)
@@ -414,7 +416,9 @@ void Proxy::slot_onSendToMudSocket(const QByteArray &ba)
 
             m_parserXml->sendPromptToUser();
         } else {
+            /* disabled for standalone mode
             m_mudSocket->sendToMud(ba);
+            */
         }
     } else {
         qWarning() << "Mud socket not available";

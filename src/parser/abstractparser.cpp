@@ -473,7 +473,8 @@ void AbstractParser::parseExits(std::ostream &os)
             }
             return "";
         };
-        os << ::toStdStringLatin1(right_trim(m_exits) + cn);
+        // Don't write out the exits in standalone mode
+        //os << ::toStdStringLatin1(right_trim(m_exits) + cn);
 
         if (getConfig().mumeNative.showNotes) {
             const auto &ns = room->getNote();
@@ -483,7 +484,8 @@ void AbstractParser::parseExits(std::ostream &os)
             }
         }
     } else {
-        os << ::toStdStringLatin1(m_exits);
+        // Don't write out the exits in standalone mode
+        //os << ::toStdStringLatin1(m_exits);
     }
 }
 
